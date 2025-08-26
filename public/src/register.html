@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestracja</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .register-form {
+            max-width: 370px;
+            margin: 60px auto;
+            background: #fff;
+            padding: 30px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .register-form h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .register-form input[type="text"],
+        .register-form input[type="password"],
+        .register-form input[type="email"] {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .register-form button {
+            width: 100%;
+            padding: 10px;
+            background: #35424a;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .register-form button:hover {
+            background: #222b31;
+        }
+    </style>
+</head>
+<body>
+    <form class="register-form" id="registerForm">
+        <h2>Rejestracja</h2>
+        <input type="text" id="username" name="username" placeholder="Nazwa użytkownika" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="password" id="password" name="password" placeholder="Hasło" required>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Powtórz hasło" required>
+        <button type="submit">Zarejestruj się</button>
+        <p style="text-align:center; margin-top:10px;">
+            Masz już konto? <a href="login.html">Zaloguj się</a>
+        </p>
+    </form>
+    <script src="../js/register.js"></script>
+</body>
+</html>
