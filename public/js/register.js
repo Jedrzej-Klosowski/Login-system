@@ -27,7 +27,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const result = await res.json();
     alert(result.message);
     if (res.ok) {
-      window.location.href = 'dashboard.html';
+      window.location.href = 'login.html';
     }
   } catch (err) {
     alert(err.message || 'Wystąpił błąd podczas rejestracji.');
