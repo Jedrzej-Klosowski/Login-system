@@ -4,49 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logowanie</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        .login-form {
-            max-width: 350px;
-            margin: 60px auto;
-            background: #fff;
-            padding: 30px 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .login-form h2 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .login-form input[type="text"],
-        .login-form input[type="password"] {
-            width: 100%;
-            padding: 8px 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .login-form button {
-            width: 100%;
-            padding: 10px;
-            background: #35424a;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        .login-form button:hover {
-            background: #222b31;
-        }
-    </style>
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
     <form class="login-form" id="loginForm">
         <h2>Logowanie</h2>
-        <input type="email" id="email" name="email" placeholder="Email" required>
-        <input type="password" id="password" name="password" placeholder="Hasło" required>
+        <input type="email" id="email" name="email" placeholder="Email" required autocomplete="email">
+        <input type="password" id="password" name="password" placeholder="Hasło" required autocomplete="current-password">
+        
         <button type="submit">Zaloguj</button>
-        <p style="text-align:center; margin-top:10px;">
+        
+        <p>
             Nie masz konta? <a href="register.html">Zarejestruj się</a>
         </p>
     </form>
