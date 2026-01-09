@@ -7,7 +7,7 @@ A simple, full-stack web application for user registration and login, using **No
 ## 🚀 Features
 
 - **User Registration**: Create a new account with username, email, and password (minimum 6 characters).
-- **Login**: Authenticate with email and password, storing session info in `localStorage`.
+- **Login**: Authenticate with email and password.
 - **Password Hashing**: User passwords are securely hashed using bcrypt before storage.
 - **MongoDB Integration**: All user data is persisted to MongoDB.
 - **Responsive UI**: Clean, modern design, accessible on mobile and desktop.
