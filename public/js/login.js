@@ -15,7 +15,7 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
       localStorage.setItem('userId', data.userId);
       localStorage.setItem('email', data.email);
       alert(data.message);
-      window.location.href = 'index.html';
+      window.location.href = 'dashboard.html';
     } else {
       alert(data.message);
     }

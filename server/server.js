@@ -66,18 +66,33 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Endpoint to get user information by ID
+app.get('/user/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    return res.status(200).json({ username: user.username, email: user.email, userId: user._id });
+  } catch (err) {
+    console.error('Error fetching user:', err);
+    return res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Połączenie z bazą danych MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/MyDB', {
   serverSelectionTimeoutMS: 5000, // Timeout po 5 sekundach
   connectTimeoutMS: 5000
 }).then(() => {
-  console.log('✅ Połączono z MongoDB');
+  console.log('[OK] Połączono z MongoDB');
   // Start serwera tylko po połączeniu z bazą
   app.listen(3000, () => {
-    console.log('🌍 Serwer działa na http://localhost:3000');
+    console.log('[OK] Serwer działa na http://localhost:3000');
   });
 }).catch(err => {
-  console.error('❌ Błąd połączenia z MongoDB:', err.message);
+  console.error('[FAIL] Błąd połączenia z MongoDB:', err.message);
   console.error('Upewnij się, że MongoDB jest uruchomione na mongodb://127.0.0.1:27017');
   process.exit(1); // Zakończ proces jeśli baza się nie połączy
 });
