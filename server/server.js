@@ -86,13 +86,13 @@ mongoose.connect('mongodb://127.0.0.1:27017/MyDB', {
   serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
   connectTimeoutMS: 5000
 }).then(() => {
-  console.log('✅ Connected to MongoDB');
+  console.log('[OK] Connected to MongoDB');
   // Start server only after database connection
   app.listen(3000, () => {
-    console.log('🌍 Server running on http://localhost:3000');
+    console.log('[OK] Server running on http://localhost:3000');
   });
 }).catch(err => {
-  console.error('❌ MongoDB connection error:', err.message);
+  console.error('[ERROR] MongoDB connection error:', err.message);
   console.error('Make sure MongoDB is running on mongodb://127.0.0.1:27017');
   process.exit(1); // Exit process if database connection fails
 });
