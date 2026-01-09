@@ -7,62 +7,62 @@ const cors = require('cors');
 const app = express();
 
 // Middleware
-app.use(express.json()); // Parsowanie JSON z żądań
-app.use(express.static(path.join(__dirname, '..', 'public'))); // Serwowanie plików statycznych
-app.use(cors()); // Zezwolenie na żądania z innych domen
+app.use(express.json()); // Parse JSON from requests
+app.use(express.static(path.join(__dirname, '..', 'public'))); // Serve static files
+app.use(cors()); // Allow requests from other domains
 
-// Endpoint rejestracji użytkownika
+// User registration endpoint
 app.post('/register', async (req, res) => {
   try {
-    console.log('req.body:', req.body); // Debugowanie danych wejściowych
-    console.log('📥 POST /register wywołany!');
+    console.log('req.body:', req.body); // Debug input data
+    console.log('[API] POST /register called!');
 
     const { username, email, password } = req.body;
     if (!username || !email || !password) {
-      return res.status(400).json({ message: 'Brak wymaganych pól' });
+      return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    // Walidacja długości hasła
+    // Password length validation
     if (password.length < 6) {
-      return res.status(400).json({ message: 'Hasło musi mieć co najmniej 6 znaków' });
+      return res.status(400).json({ message: 'Password must be at least 6 characters' });
     }
 
-    // Sprawdzenie czy użytkownik już istnieje
+    // Check if user already exists
     const userExists = await User.findOne({ $or: [{ username }, { email }] });
-    if (userExists) return res.status(400).json({ message: 'Użytkownik już istnieje' });
+    if (userExists) return res.status(400).json({ message: 'User already exists' });
 
-    // Haszowanie hasła
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    // Tworzenie nowego użytkownika
+    // Create new user
     const user = new User({ username, email, password: hashedPassword });
     await user.save();
-    return res.status(201).json({ message: 'Zarejestrowano pomyślnie' });
+    return res.status(201).json({ message: 'Registered successfully' });
   } catch (err) {
-    console.error('Błąd rejestracji:', err);
-    return res.status(500).json({ message: 'Błąd serwera' });
+    console.error('Registration error:', err);
+    return res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Endpoint logowania
+// Login endpoint
 app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(400).json({ message: 'Brak wymaganych pól' });
+      return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    // Szukanie użytkownika po emailu
+    // Find user by email
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Błędne dane' });
+    if (!user) return res.status(400).json({ message: 'Invalid credentials' });
 
-    // Weryfikacja hasła
+    // Verify password
     const valid = await bcrypt.compare(password, user.password);
-    if (!valid) return res.status(400).json({ message: 'Błędne dane' });
+    if (!valid) return res.status(400).json({ message: 'Invalid credentials' });
 
-    return res.status(200).json({ message: 'Zalogowano pomyślnie', userId: user._id, email: user.email });
+    return res.status(200).json({ message: 'Logged in successfully', userId: user._id, email: user.email });
   } catch (err) {
-    console.error('Błąd logowania:', err);
-    return res.status(500).json({ message: 'Błąd serwera' });
+    console.error('Login error:', err);
+    return res.status(500).json({ message: 'Server error' });
   }
 });
 
@@ -81,19 +81,19 @@ app.get('/user/:userId', async (req, res) => {
   }
 });
 
-// Połączenie z bazą danych MongoDB
+// Connect to MongoDB database
 mongoose.connect('mongodb://127.0.0.1:27017/MyDB', {
-  serverSelectionTimeoutMS: 5000, // Timeout po 5 sekundach
+  serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
   connectTimeoutMS: 5000
 }).then(() => {
-  console.log('[OK] Połączono z MongoDB');
-  // Start serwera tylko po połączeniu z bazą
+  console.log('✅ Connected to MongoDB');
+  // Start server only after database connection
   app.listen(3000, () => {
-    console.log('[OK] Serwer działa na http://localhost:3000');
+    console.log('🌍 Server running on http://localhost:3000');
   });
 }).catch(err => {
-  console.error('[FAIL] Błąd połączenia z MongoDB:', err.message);
-  console.error('Upewnij się, że MongoDB jest uruchomione na mongodb://127.0.0.1:27017');
-  process.exit(1); // Zakończ proces jeśli baza się nie połączy
+  console.error('❌ MongoDB connection error:', err.message);
+  console.error('Make sure MongoDB is running on mongodb://127.0.0.1:27017');
+  process.exit(1); // Exit process if database connection fails
 });
 

@@ -11,7 +11,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
   };
 
   if (data.password !== data.confirmPassword) {
-    alert('Hasła się nie zgadzają!');
+    alert('Passwords do not match!');
     return;
   }
   try {
@@ -30,7 +30,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
       window.location.href = 'login.html';
     }
   } catch (err) {
-    alert(err.message || 'Wystąpił błąd podczas rejestracji.');
+    alert(err.message || 'An error occurred during registration.');
     console.error(err);
   }
 });

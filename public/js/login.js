@@ -20,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
       alert(data.message);
     }
   } catch (err) {
-    alert(err.message || 'Błąd połączenia z serwerem');
+    alert(err.message || 'Server connection error');
     console.error(err);
   }
 });
