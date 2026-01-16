@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Full-stack authentication system built with Node.js, Express, and MongoDB">
+    <title>Login System - Authentication Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">🔐 Login System</h1>
+                <nav class="nav">
+                    <a href="#overview">Overview</a>
+                    <a href="#features">Features</a>
+                    <a href="#tech-stack">Tech Stack</a>
+                    <a href="#architecture">Architecture</a>
+                    <a href="#api">API</a>
+                    <a href="https://github.com/Jedrzej-Klosowski/Login-system" target="_blank" class="btn-primary">View on GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-title">Modern Full-Stack Authentication System</h2>
+                <p class="hero-subtitle">A secure, scalable login system built with Node.js, Express, and MongoDB featuring user registration, authentication, and session management.</p>
+                <div class="hero-buttons">
+                    <a href="https://github.com/Jedrzej-Klosowski/Login-system" target="_blank" class="btn-primary btn-large">
+                        <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-. 49-2.69-. 94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87. 87 2.33. 66.07-.52.28-.87.51-1.07-1.78-. 2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-. 08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-. 18 1.32-.27 2-. 27.68 0 1.36.09 2 .27 1.53-1.04 2.2-. 82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27. 82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                        </svg>
+                        View Source Code
+                    </a>
+                    <a href="#how-it-works" class="btn-secondary btn-large">Learn How It Works</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section">
+        <div class="container">
+            <h2 class="section-title">Project Overview</h2>
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="icon">🎯</div>
+                    <h3>Purpose</h3>
+                    <p>A demonstration of full-stack authentication implementation with modern security practices and clean architecture.</p>
+                </div>
+                <div class="overview-card">
+                    <div class="icon">🏗️</div>
+                    <h3>Architecture</h3>
+                    <p>RESTful API backend with Express.js serving a lightweight frontend, connected to MongoDB for data persistence.</p>
+                </div>
+                <div class="overview-card">
+                    <div class="icon">🔒</div>
+                    <h3>Security</h3>
+                    <p>Implements bcrypt password hashing, input validation, unique constraints, and CORS protection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🆕</div>
+                    <h3>User Registration</h3>
+                    <p>Create accounts with username, email, and password validation</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔑</div>
+                    <h3>Secure Authentication</h3>
+                    <p>Login with email and password verification using bcrypt</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>User Dashboard</h3>
+                    <p>Personalized dashboard displaying user information</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Password Security</h3>
+                    <p>Bcrypt hashing with 10 salt rounds for encryption</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>MongoDB Integration</h3>
+                    <p>All user data persisted to MongoDB database</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Responsive Design</h3>
+                    <p>Clean, modern UI for mobile and desktop</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚠️</div>
+                    <h3>Error Handling</h3>
+                    <p>User-friendly error messages for validation</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Real-time Validation</h3>
+                    <p>Client-side and server-side input validation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech-stack" class="section">
+        <div class="container">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="tech-stack-grid">
+                <div class="tech-category">
+                    <h3>Frontend</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <span class="tech-name">JavaScript</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 44.6%"></div>
+                            </div>
+                            <span class="tech-percentage">44.6%</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-name">CSS</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 38.6%"></div>
+                            </div>
+                            <span class="tech-percentage">38.6%</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-name">HTML</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 16.8%"></div>
+                            </div>
+                            <span class="tech-percentage">16.8%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3>Backend</h3>
+                    <div class="tech-list">
+                        <div class="tech-badge">Node.js</div>
+                        <div class="tech-badge">Express 5.2. 1</div>
+                        <div class="tech-badge">MongoDB</div>
+                        <div class="tech-badge">Mongoose 8.20.2</div>
+                        <div class="tech-badge">bcryptjs 3.0.3</div>
+                        <div class="tech-badge">CORS 2.8.5</div>
+                        <div class="tech-badge">dotenv 17.2.3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div id="how-it-works" class="architecture-diagram">
+                <div class="arch-layer">
+                    <h3>Frontend Layer</h3>
+                    <div class="arch-components">
+                        <div class="arch-component">Landing Page</div>
+                        <div class="arch-component">Registration Form</div>
+                        <div class="arch-component">Login Form</div>
+                        <div class="arch-component">Dashboard</div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓ HTTP Requests ↓</div>
+                <div class="arch-layer">
+                    <h3>Backend Layer (Express.js)</h3>
+                    <div class="arch-components">
+                        <div class="arch-component">POST /register</div>
+                        <div class="arch-component">POST /login</div>
+                        <div class="arch-component">GET /user/: userId</div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓ Mongoose ORM ↓</div>
+                <div class="arch-layer">
+                    <h3>Database Layer</h3>
+                    <div class="arch-components">
+                        <div class="arch-component">MongoDB</div>
+                        <div class="arch-component">User Collection</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workflow-section">
+                <h3>Authentication Flow</h3>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Registration</h4>
+                            <p>User submits username, email, and password → Server validates input → Password hashed with bcrypt → User stored in MongoDB</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Login</h4>
+                            <p>User submits email and password → Server finds user in database → Password compared using bcrypt → userId and email stored in localStorage</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Dashboard</h4>
+                            <p>Frontend reads userId from localStorage → Fetches user data from GET /user/:userId → Displays personalized information</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Logout</h4>
+                            <p>User clicks logout → localStorage cleared → Redirected to landing page</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Section -->
+    <section id="api" class="section">
+        <div class="container">
+            <h2 class="section-title">API Endpoints</h2>
+            <div class="api-endpoints">
+                <div class="api-endpoint">
+                    <div class="api-method post">POST</div>
+                    <div class="api-details">
+                        <h4>/register</h4>
+                        <p class="api-description">Register a new user account</p>
+                        <div class="api-code">
+                            <strong>Request Body:</strong>
+                            <pre><code>{
+  "username": "johndoe",
+  "email":  "john@example.com",
+  "password": "securePassword123"
+}</code></pre>
+                        </div>
+                        <div class="api-code">
+                            <strong>Response: </strong>
+                            <pre><code>{
+  "message": "User registered successfully",
+  "userId": "507f1f77bcf86cd799439011"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-endpoint">
+                    <div class="api-method post">POST</div>
+                    <div class="api-details">
+                        <h4>/login</h4>
+                        <p class="api-description">Authenticate user credentials</p>
+                        <div class="api-code">
+                            <strong>Request Body:</strong>
+                            <pre><code>{
+  "email": "john@example.com",
+  "password": "securePassword123"
+}</code></pre>
+                        </div>
+                        <div class="api-code">
+                            <strong>Response:</strong>
+                            <pre><code>{
+  "message": "Login successful",
+  "userId": "507f1f77bcf86cd799439011",
+  "email": "john@example.com"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-endpoint">
+                    <div class="api-method get">GET</div>
+                    <div class="api-details">
+                        <h4>/user/:userId</h4>
+                        <p class="api-description">Retrieve user information by ID</p>
+                        <div class="api-code">
+                            <strong>Response:</strong>
+                            <pre><code>{
+  "username": "johndoe",
+  "email": "john@example. com",
+  "userId": "507f1f77bcf86cd799439011"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Security Features</h2>
+            <div class="security-grid">
+                <div class="security-item">
+                    <span class="check">✅</span>
+                    <div>
+                        <strong>Password Hashing</strong>
+                        <p>Bcrypt with 10 salt rounds</p>
+                    </div>
+                </div>
+                <div class="security-item">
+                    <span class="check">✅</span>
+                    <div>
+                        <strong>Unique Constraints</strong>
+                        <p>Email and username uniqueness enforced</p>
+                    </div>
+                </div>
+                <div class="security-item">
+                    <span class="check">✅</span>
+                    <div>
+                        <strong>Input Validation</strong>
+                        <p>Client-side and server-side validation</p>
+                    </div>
+                </div>
+                <div class="security-item">
+                    <span class="check">✅</span>
+                    <div>
+                        <strong>CORS Enabled</strong>
+                        <p>Controlled cross-origin requests</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-box">
+                <h4>⚠️ Production Recommendations</h4>
+                <p>This is a learning/demonstration project. For production use, consider implementing: </p>
+                <ul>
+                    <li>JWT tokens instead of localStorage</li>
+                    <li>HTTPS/TLS encryption</li>
+                    <li>Rate limiting</li>
+                    <li>CSRF protection</li>
+                    <li>HTTP-only cookies for session management</li>
+                    <li>Input sanitization</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Getting Started Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Get Started</h2>
+            <div class="getting-started">
+                <div class="code-block">
+                    <h4>1. Clone the repository</h4>
+                    <pre><code>git clone https://github.com/Jedrzej-Klosowski/Login-system.git
+cd Login-system</code></pre>
+                </div>
+                <div class="code-block">
+                    <h4>2. Install dependencies</h4>
+                    <pre><code>cd server
+npm install</code></pre>
+                </div>
+                <div class="code-block">
+                    <h4>3. Run the application</h4>
+                    <pre><code>node server/server.js</code></pre>
+                </div>
+                <div class="code-block">
+                    <h4>4. Open in browser</h4>
+                    <pre><code>http://localhost:3000</code></pre>
+                </div>
+            </div>
+            <p class="prerequisites"><strong>Prerequisites:</strong> Node. js (v14+), MongoDB running locally</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Login System Project</h4>
+                    <p>A modern full-stack authentication demonstration</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links</h4>
+                    <a href="https://github.com/Jedrzej-Klosowski/Login-system">GitHub Repository</a>
+                    <a href="https://github.com/Jedrzej-Klosowski/Login-system/issues">Issues</a>
+                    <a href="https://github.com/Jedrzej-Klosowski">Author's Profile</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Author</h4>
+                    <p>Jędrzej Kłosowski</p>
+                    <a href="https://github.com/Jedrzej-Klosowski">@Jedrzej-Klosowski</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Jędrzej Kłosowski.  This project is unlicensed.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
