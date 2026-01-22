@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (!userId) {
         alert('Please login first');
-        window.location.href = 'login.html';
+        window.location.href = '/src/login.html';
         return;
     }
 
@@ -40,5 +40,5 @@ function logout() {
     localStorage.removeItem('userId');
     localStorage.removeItem('email');
     alert('Logged out successfully');
-    window.location.href = 'login.html';
+    window.location.href = '/src/login.html';
 }

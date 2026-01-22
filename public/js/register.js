@@ -28,7 +28,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const result = await res.json();
     alert(result.message);
     if (res.ok) {
-      window.location.href = 'login.html';
+      window.location.href = '/src/login.html';
     }
   } catch (err) {
     alert(err.message || 'An error occurred during registration.');
