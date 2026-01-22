@@ -65,7 +65,7 @@ app.post('/register', async (req, res) => {
 // Login endpoint
 app.post('/login', async (req, res) => {
   try {
-    console. log('[API] POST /login called!');
+    console.log('[API] POST /login called!');
     const { email, password } = req.body;
     
     if (!email || !password) {
@@ -134,7 +134,7 @@ mongoose.connect(MONGODB_URI, {
   serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
   connectTimeoutMS: 10000,
 })
-. then(() => {
+.then(() => {
   console.log('[OK] Connected to MongoDB successfully! ');
   console.log('Database:', mongoose.connection.name);
   
