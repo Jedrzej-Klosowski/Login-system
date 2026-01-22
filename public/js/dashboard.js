@@ -1,3 +1,4 @@
+const API_URL = 'https://login-system-backend-bu5v.onrender.com';
 // On page load, fetch user information
 document.addEventListener('DOMContentLoaded', async () => {
     const userId = localStorage.getItem('userId');
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Fetch user details from the server
-        const res = await fetch(`http://127.0.0.1:3000/user/${userId}`);
+        const res = await fetch(`${API_URL}/user/${userId}`);
         const data = await res.json();
 
         if (res.ok) {

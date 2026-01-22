@@ -1,3 +1,4 @@
+const API_URL = 'https://login-system-backend-bu5v.onrender.com';
 document.getElementById('loginForm').addEventListener('submit', async e => {
   e.preventDefault();
 
@@ -5,7 +6,7 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
   const password = document.getElementById('password').value;
 
   try {
-    const res = await fetch('http://127.0.0.1:3000/login', {
+    const res = await fetch(`${API_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
