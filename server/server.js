@@ -1,4 +1,4 @@
-require('dotenv').config(); // Load environment variables
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -6,85 +6,96 @@ const User = require('./models/User');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const app = express();
+
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/MyDB';
 const PORT = process.env.PORT || 3000;
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5500';
 
 // Middleware
-app.use(express.json()); // Parse JSON from requests
-app.use(express.static(path.join(__dirname, '..', 'public'))); // Serve static files
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// CORS configuration - allow requests from your frontend
+// CORS configuration
 app.use(cors({
-  origin: [FRONTEND_URL, 'http://localhost:5500', 'http://127.0.0.1:5500'], // Add your Vercel URL here
-  credentials: true
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  next();
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK', message: 'Server is running' });
+  console.log('[LOG] Health check called');
+  res.status(200).json({ status: 'OK', message:  'Server is running' });
 });
 
 // User registration endpoint
 app.post('/register', async (req, res) => {
   try {
-    console.log('req.body:', req.body); // Debug input data
-    console.log('[API] POST /register called! ');
+    console.log('====== REGISTER REQUEST ======');
+    console.log('Body:', req.body);
 
     const { username, email, password } = req.body;
+    
     if (!username || !email || !password) {
+      console.log('Missing fields');
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    // Password length validation
     if (password.length < 6) {
+      console.log('Password too short');
       return res.status(400).json({ message: 'Password must be at least 6 characters' });
     }
 
-    // Check if user already exists
     const userExists = await User.findOne({ $or: [{ username }, { email }] });
     if (userExists) {
+      console.log('User already exists');
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    
-    // Create new user
     const user = new User({ username, email, password: hashedPassword });
-    await user.save();
     
-    console.log('User registered successfully:', username);
+    console.log('[LOG] Saving user...');
+    await user.save();
+    console.log('[OK] User registered:', username);
+    
     return res.status(201).json({ message: 'Registered successfully' });
   } catch (err) {
-    console.error('Registration error:', err);
-    return res.status(500).json({ message: 'Server error' });
+    console.error('[FAIL] Registration error:', err);
+    return res.status(500).json({ message: 'Server error:  ' + err.message });
   }
 });
 
 // Login endpoint
 app.post('/login', async (req, res) => {
   try {
-    console.log('[API] POST /login called!');
+    console.log('====== LOGIN REQUEST ======');
+    console.log('Body:', req.body);
+    
     const { email, password } = req.body;
     
     if (!email || !password) {
+      console.log('Missing fields');
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
+      console.log('User not found');
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Verify password
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
+      console.log('Invalid password');
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    console.log('User logged in successfully:', user.email);
+    console.log('[OK] User logged in:', user.email);
     return res.status(200).json({ 
       message: 'Logged in successfully', 
       userId: user._id, 
@@ -92,64 +103,79 @@ app.post('/login', async (req, res) => {
       username: user.username 
     });
   } catch (err) {
-    console.error('Login error:', err);
-    return res.status(500).json({ message: 'Server error' });
+    console.error('[FAIL] Login error:', err);
+    return res.status(500).json({ message: 'Server error: ' + err.message });
   }
 });
 
-// Endpoint to get user information by ID
+// Get user by ID endpoint
 app.get('/user/:userId', async (req, res) => {
   try {
+    console.log('====== GET USER REQUEST ======');
     const { userId } = req.params;
+    console.log('userId:', userId);
     
-    // Validate userId format
     if (!mongoose.Types.ObjectId.isValid(userId)) {
+      console.log('Invalid userId format');
       return res.status(400).json({ message: 'Invalid user ID format' });
     }
     
     const user = await User.findById(userId);
     if (!user) {
+      console.log('User not found');
       return res.status(404).json({ message: 'User not found' });
     }
     
+    console.log('[OK] User found:', user.username);
     return res.status(200).json({ 
       username: user.username, 
       email: user.email, 
       userId: user._id 
     });
   } catch (err) {
-    console.error('Error fetching user:', err);
-    return res.status(500).json({ message: 'Server error' });
+    console.error('[FAIL] Error fetching user:', err);
+    return res.status(500).json({ message: 'Server error: ' + err.message });
   }
 });
 
-// 404 handler for API routes
-app.use('/api/*', (req, res) => {
-  res.status(404).json({ message: 'API endpoint not found' });
+// 404 handler
+app.use((req, res) => {
+  console.log('[FAIL] 404 - Route not found:', req.method, req.path);
+  res.status(404).json({ message: 'Route not found' });
 });
 
-// Connect to MongoDB database
-console.log('Attempting to connect to MongoDB...');
+// Connect to MongoDB
+console.log('========================================');
+console.log('Starting server.. .');
+console.log('MongoDB URI:', MONGODB_URI ?  'Set (hidden)' : 'NOT SET');
+console.log('========================================');
+
 mongoose.connect(MONGODB_URI, {
-  serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
+  serverSelectionTimeoutMS: 5000,
   connectTimeoutMS: 10000,
 })
 .then(() => {
-  console.log('[OK] Connected to MongoDB successfully! ');
+  console.log('[OK] Connected to MongoDB successfully!');
   console.log('Database:', mongoose.connection.name);
   
-  // Start the server only after successful DB connection
   app.listen(PORT, () => {
+    console.log('========================================');
     console.log(`[OK] Server running on port ${PORT}`);
     console.log(`[LOG] Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log('========================================');
+    console.log('Available routes:');
+    console.log('  GET  /health');
+    console.log('  POST /register');
+    console.log('  POST /login');
+    console.log('  GET  /user/:userId');
+    console.log('========================================');
   });
 })
 .catch(err => {
   console.error('[FAIL] MongoDB connection error:', err.message);
-  process.exit(1); // Exit if cannot connect to database
+  process.exit(1);
 });
 
-// Handle graceful shutdown
 process.on('SIGINT', async () => {
   console.log('\nShutting down gracefully...');
   await mongoose.connection.close();
